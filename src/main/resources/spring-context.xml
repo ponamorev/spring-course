@@ -4,4 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="personDao" class="org.example.spring01.dao.PersonDaoSimple">
+    </bean>
+
+    <bean id="personService" class="org.example.spring01.service.PersonServiceImpl">
+        <constructor-arg name="dao" ref="personDao"/>
+    </bean>
+
 </beans>
