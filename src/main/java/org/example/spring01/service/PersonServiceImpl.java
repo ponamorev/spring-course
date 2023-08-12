@@ -1,14 +1,12 @@
 package org.example.spring01.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.spring01.dao.PersonDao;
 import org.example.spring01.domain.Person;
 
+@RequiredArgsConstructor
 public class PersonServiceImpl implements PersonService {
-    private PersonDao dao;
-
-    public PersonServiceImpl(PersonDao dao) {
-        this.dao = dao;
-    }
+    private final PersonDao dao;
 
     @Override
     public Person getByName(String name) {
