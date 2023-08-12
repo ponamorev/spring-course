@@ -1,11 +1,14 @@
 package org.example.spring01.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class Person {
-    private final String name;
-    private final int age;
+    private String name;
+    private int age;
 }

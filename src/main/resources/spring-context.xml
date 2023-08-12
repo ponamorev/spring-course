@@ -5,6 +5,7 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="personDao" class="org.example.spring01.dao.PersonDaoSimple">
+        <property name="defaultAge" value="28"/>
     </bean>
 
     <bean id="personService" class="org.example.spring01.service.PersonServiceImpl">
