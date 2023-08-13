@@ -1,5 +1,8 @@
 package org.example.spring01.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.example.spring01.dao.QuestionDao;
+import org.example.spring01.domain.Question;
 import org.example.spring01.service.CsvService;
 
 import java.io.File;
@@ -11,18 +14,17 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 public class CsvServiceImpl implements CsvService {
     private static final String COMMA_DELIMITER = ",";
-    private final File file;
-
-    public CsvServiceImpl(String path) {
-        file = new File(path);
-    }
+    private final String path;
+    private final QuestionDao dao;
 
     @Override
-    public Map<String, Set<String>> parseCsvFile() {
+    public void parseCsvFile() {
         List<List<String>> records = readCsv();
-        return splitQuestionsAndAnswers(records);
+        Map<String, Set<String>> map = splitQuestionsAndAnswers(records);
+        map.forEach((k, v) -> dao.setQuestion(new Question(k, v)));
     }
 
     private Map<String, Set<String>> splitQuestionsAndAnswers(List<List<String>> records) {
@@ -38,6 +40,7 @@ public class CsvServiceImpl implements CsvService {
     }
 
     private List<List<String>> readCsv() {
+        File file = new File(path);
         List<List<String>> records = new ArrayList<>();
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {

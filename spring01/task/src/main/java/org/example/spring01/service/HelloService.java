@@ -4,4 +4,6 @@ public interface HelloService {
     String askFirstName();
 
     String askLastName();
+
+    void confirmSurveyStart();
 }

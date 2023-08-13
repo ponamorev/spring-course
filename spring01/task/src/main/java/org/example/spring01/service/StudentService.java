@@ -7,5 +7,5 @@ import java.util.Map;
 public interface StudentService {
     Student find(String firstName, String lastName);
 
-    void saveAnswers(Student student, Map<String, String> answers);
+    void save(Student student);
 }
