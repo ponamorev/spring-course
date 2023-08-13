@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="studentDao" class="org.example.spring01.dao.StudentDaoSimple">
+    </bean>
+
+    <bean id="questionDao" class="org.example.spring01.dao.QuestionDaoSimple">
+    </bean>
+
+    <bean id="csvService" class="org.example.spring01.service.impl.CsvServiceImpl">
+        <constructor-arg name="dao" ref="questionDao"/>
+        <constructor-arg name="path" value="spring01/task/src/main/resource/questions.csv"/>
+    </bean>
+
+    <bean id="helloService" class="org.example.spring01.service.impl.HelloServiceImpl">
+    </bean>
+
+    <bean id="studentService" class="org.example.spring01.service.impl.StudentServiceImpl">
+        <constructor-arg name="dao" ref="studentDao"/>
+    </bean>
+
+    <bean id="surveyService" class="org.example.spring01.service.impl.SurveyServiceImpl">
+        <constructor-arg name="dao" ref="questionDao"/>
+        <constructor-arg name="studentService" ref="studentService"/>
+    </bean>
+
+</beans>

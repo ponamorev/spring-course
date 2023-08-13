@@ -1,10 +1,16 @@
 package org.example.spring01.service.impl;
 
+import lombok.Cleanup;
 import org.example.spring01.service.HelloService;
 
 import java.util.Scanner;
 
 public class HelloServiceImpl implements HelloService {
+    @Override
+    public void hello() {
+        System.out.println("Hello! We're glad to see you here in our quiz. Introduce yourself");
+    }
+
     @Override
     public String askFirstName() {
         return ask("Please enter your first name and press Enter:");
@@ -20,10 +26,18 @@ public class HelloServiceImpl implements HelloService {
         ask("Press Enter to start survey...");
     }
 
+    @Override
+    public String askToContinueOrExit() {
+        String q = """
+                Do you want to pass quiz again or exit?
+                For continue - press Enter
+                For exit - enter 'exit' and press Enter""";
+        return ask(q);
+    }
+
     private String ask(String question) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println(question);
-            return scanner.nextLine();
-        }
+        @Cleanup Scanner scanner = new Scanner(System.in);
+        System.out.println(question);
+        return scanner.nextLine();
     }
 }
