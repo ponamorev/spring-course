@@ -1,7 +1,6 @@
 package org.example.spring01.service.impl;
 
 import lombok.AllArgsConstructor;
-import lombok.Cleanup;
 import org.example.spring01.dao.QuestionDao;
 import org.example.spring01.domain.Question;
 import org.example.spring01.domain.Student;
@@ -17,6 +16,7 @@ import java.util.stream.Collectors;
 public class SurveyServiceImpl implements SurveyService {
     private StudentService studentService;
     private QuestionDao dao;
+    private Scanner scanner;
 
     @Override
     public void quiz(Student student) {
@@ -39,7 +39,6 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     private Map<String, String> askQuestions(Set<String> questions) {
-        @Cleanup Scanner scanner = new Scanner(System.in);
         System.out.println("Write down your answers under each question and press Enter..");
         return questions.stream()
                 .map(q -> askQuestion(q, scanner))

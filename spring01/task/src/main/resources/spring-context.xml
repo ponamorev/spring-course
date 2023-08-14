@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean id="studentDao" class="org.example.spring01.dao.StudentDaoSimple">
     </bean>
@@ -10,12 +13,19 @@
     <bean id="questionDao" class="org.example.spring01.dao.QuestionDaoSimple">
     </bean>
 
+    <util:constant id="inputStream" static-field="java.lang.System.in" />
+
+    <bean id="scanner" class="java.util.Scanner">
+        <constructor-arg name="source" ref="inputStream"/>
+    </bean>
+
     <bean id="csvService" class="org.example.spring01.service.impl.CsvServiceImpl">
         <constructor-arg name="dao" ref="questionDao"/>
-        <constructor-arg name="path" value="spring01/task/src/main/resource/questions.csv"/>
+        <constructor-arg name="path" value="spring01/task/src/main/resources/questions.csv"/>
     </bean>
 
     <bean id="helloService" class="org.example.spring01.service.impl.HelloServiceImpl">
+        <constructor-arg name="scanner" ref="scanner"/>
     </bean>
 
     <bean id="studentService" class="org.example.spring01.service.impl.StudentServiceImpl">
@@ -25,6 +35,7 @@
     <bean id="surveyService" class="org.example.spring01.service.impl.SurveyServiceImpl">
         <constructor-arg name="dao" ref="questionDao"/>
         <constructor-arg name="studentService" ref="studentService"/>
+        <constructor-arg name="scanner" ref="scanner"/>
     </bean>
 
 </beans>

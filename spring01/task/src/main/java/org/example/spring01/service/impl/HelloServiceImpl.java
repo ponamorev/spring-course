@@ -1,11 +1,14 @@
 package org.example.spring01.service.impl;
 
-import lombok.Cleanup;
+import lombok.RequiredArgsConstructor;
 import org.example.spring01.service.HelloService;
 
 import java.util.Scanner;
 
+@RequiredArgsConstructor
 public class HelloServiceImpl implements HelloService {
+    private final Scanner scanner;
+
     @Override
     public void hello() {
         System.out.println("Hello! We're glad to see you here in our quiz. Introduce yourself");
@@ -36,7 +39,6 @@ public class HelloServiceImpl implements HelloService {
     }
 
     private String ask(String question) {
-        @Cleanup Scanner scanner = new Scanner(System.in);
         System.out.println(question);
         return scanner.nextLine();
     }
