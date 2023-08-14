@@ -14,6 +14,10 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class SurveyServiceImpl implements SurveyService {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+
     private StudentService studentService;
     private QuestionDao dao;
     private Scanner scanner;
@@ -31,8 +35,8 @@ public class SurveyServiceImpl implements SurveyService {
         Set<Question> source = dao.getQuestions();
         Map<String, String> answers = student.getAnswers();
         if (answers == null) {
-            System.out.println("Student '" + student.getFirstName() + " " + student.getLastName() +
-                    "' hasn't answered questions yet");
+            System.out.println("\nStudent '" + student.getFirstName() + " " + student.getLastName() +
+                    "' hasn't answered questions yet\n");
             return;
         }
         answers.forEach((k, v) -> verify(source, Map.entry(k, v)));
@@ -59,10 +63,11 @@ public class SurveyServiceImpl implements SurveyService {
                 .orElseThrow(() -> new RuntimeException("There is no question '" + question + "'"))
                 .getAnswers();
         if (sourceAnswers.contains(studentAnswer.getValue())) {
-            System.out.println("Question\n" + question + "\nAnswer is CORRECT!");
+            System.out.println("Question\n" + question + ANSI_GREEN + "\nAnswer is CORRECT!" + ANSI_RESET);
         } else {
-            System.out.println("Question\n" + question + "\nAnswer is WRONG!");
+            System.out.println("Question\n" + question + ANSI_RED + "\nAnswer is WRONG!" + ANSI_RESET);
             System.out.println("Possible answers:\n" + sourceAnswers);
         }
+        System.out.println("\n\n");
     }
 }

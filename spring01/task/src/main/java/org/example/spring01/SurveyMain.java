@@ -21,9 +21,11 @@ public class SurveyMain {
             String firstName = helloService.askFirstName();
             String lastName = helloService.askLastName();
             Student student = studentService.find(firstName, lastName);
+
+            helloService.confirmSurveyStart();
             surveyService.quiz(student);
 
-            System.out.println("========================");
+            System.out.println("\n\n========================\n\n");
             surveyService.verify(student);
         } while (!helloService.askToContinueOrExit().equals("exit"));
     }

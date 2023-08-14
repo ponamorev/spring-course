@@ -33,7 +33,7 @@ public class HelloServiceImpl implements HelloService {
     public String askToContinueOrExit() {
         String q = """
                 Do you want to pass quiz again or exit?
-                For continue - press Enter
+                For continue - press and symbol and then press Enter
                 For exit - enter 'exit' and press Enter""";
         return ask(q);
     }
